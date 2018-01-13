@@ -1,0 +1,29 @@
+body {
+	background-color: hsla(210, 100%, 75%, 1.0);
+	color: #001f3f;
+}
+
+h1 {
+	text-align: center;
+}
+
+.row {
+	margin: 0;
+}
+
+.sounds-container {
+	text-align: center;
+}
+
+.sound-cell-box {
+	padding: 1% 1% 1% 1%;
+}
+
+.sound-cell {
+	height: 200px;
+	line-height: 200px;
+	background-color: #001f3f;
+	color: hsla(210, 100%, 75%, 1.0);
+	text-transform: uppercase;
+	cursor: pointer;
+}
