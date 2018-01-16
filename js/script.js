@@ -14,9 +14,9 @@ function selectSounds(filter) {
                 upper_filter = filter.toUpperCase();
                 if ( (upper_current_sound_title.search(upper_filter) >= 0) || (filter == '') ) {
                     var html_text = "<div class='col-md-3 sound-cell-box'>"+
-                                        "<div class='sound-cell'>"+
+                                        "<div class='sound-cell' onClick='playSound("+i+")'>"+
                                             current_sound.title+
-                                            "<audio src='"+mp3_location+current_sound.file+"' preload='none'>"+
+                                            "<audio id=\"sound_"+i+"\" src='"+mp3_location+current_sound.file+"' preload='none'>"+
                                         "</div>"+
                                     "</div>";
                     container.append(html_text);
@@ -30,14 +30,13 @@ function selectSounds(filter) {
     });
 }
 
+function playSound(sound_id) {
+    console.log(sound_id);
+    $("#sound_"+sound_id)[0].play();
+}
+
 $(document).ready(function(){
     selectSounds('');
-
-    $(".sound-cell").click(function() {
-        console.log( "test" );
-        triggered_audio = $(this).find("audio")[0];
-        console.log(triggered_audio);
-    });
 
     $("#filter").keyup(function() {
         selectSounds(this.value);
