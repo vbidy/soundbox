@@ -1,51 +1,46 @@
-$(document).ready(function(){
-	var mp3_location = "mp3/";
+var mp3_location = "mp3/";
+var container = $(".sounds-container");
 
-	var sounds = [
-		{
-			title:"Stop ! M.R. Time.",
-			file: "stop_mrtime.mp3"
-		}
-		// Add new sounds here, and resources in mp3/ 
-	];
-
-
-
-	var container = $(".sounds-container");
-
-	for (i in sounds) {
-		var current_sound = sounds[i];
-		var html_text = "<div class='col-md-3 sound-cell-box'>"+
-							"<div class='sound-cell'>"+
-								current_sound.title+
-							"<audio src='"+mp3_location+current_sound.file+"' preload='auto'>"+
-							"</div>"
-						"</div>";
-
-		container.append(html_text);
-		/*current_audio = container.children(".sound-cell").last().children("audio").last()[0];
-		current_audio.onplaying = function() {
-  			$(this).isPlaying = true;
-		};
-		current_audio.onpause = function() {
-  			$(this).isPlaying = false;
-		};
-		$(this).isPlaying = false;*/
-	}
-
-
-
-    $("h1").click(function(){
-        console.log("toto");
+function selectSounds(filter) {
+    container.empty();
+    $.ajax({
+        url : 'conf/sounds.json',
+        dataType : 'json',
+        mimeType: "application/json",
+        success : function(sounds) {
+            for (i in sounds) {
+                var current_sound = sounds[i];
+                upper_current_sound_title = current_sound.title.toUpperCase();
+                upper_filter = filter.toUpperCase();
+                if ( (upper_current_sound_title.search(upper_filter) >= 0) || (filter == '') ) {
+                    var html_text = "<div class='col-md-3 sound-cell-box'>"+
+                                        "<div class='sound-cell'>"+
+                                            current_sound.title+
+                                            "<audio src='"+mp3_location+current_sound.file+"' preload='none'>"+
+                                        "</div>"+
+                                    "</div>";
+                    container.append(html_text);
+                }
+            }
+        },
+        error : function(e) {
+            console.log( "Failed to load sounds.json" )
+            console.log(e);
+        }
     });
+}
 
-    $(".sound-cell").click(function(){
+$(document).ready(function(){
+    selectSounds('');
+
+    $(".sound-cell").click(function() {
+        console.log( "test" );
         triggered_audio = $(this).find("audio")[0];
         console.log(triggered_audio);
-    //  if ($(this).isPlaying) {
-    //		triggered_audio.pause()
-  	//	} else {
-    		triggered_audio.play();
-    //  }
+    });
+
+    $("#filter").keyup(function() {
+        selectSounds(this.value);
+        console.log( this.value )
     });
 });

@@ -16,14 +16,18 @@ h1 {
 }
 
 .sound-cell-box {
+}
+
+.filter-input {
 	padding: 1% 1% 1% 1%;
 }
 
 .sound-cell {
-	height: 200px;
-	line-height: 200px;
+	height: 100px;
+	line-height: 100px;
 	background-color: #001f3f;
 	color: hsla(210, 100%, 75%, 1.0);
 	text-transform: uppercase;
 	cursor: pointer;
+	margin: 1% 1% 1% 1%;
 }
