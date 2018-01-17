@@ -13,7 +13,7 @@ function selectSounds(filter) {
                 upper_current_sound_title = current_sound.title.toUpperCase();
                 upper_filter = filter.toUpperCase();
                 if ( (upper_current_sound_title.search(upper_filter) >= 0) || (filter == '') ) {
-                    var html_text = "<div class='col-sm-6 col-md-4 col-lg-3 col-xl-2 sound-cell-box'>"+
+                    var html_text = "<div class='col-sm-6 col-md-4 col-lg-3 col-xl-3 sound-cell-box'>"+
                                         "<div class='sound-cell' onClick='playSound("+i+")'>"+
                                             current_sound.title+
                                             "<audio id=\"sound_"+i+"\" src='"+mp3_location+current_sound.file+"' preload='none'>"+
@@ -25,6 +25,22 @@ function selectSounds(filter) {
         },
         error : function(e) {
             console.log( "Failed to load sounds.json")
+        }
+    });
+}
+
+function initPage() {
+    $.ajax({
+        url : 'conf/soundbox.json',
+        dataType : 'json',
+        mimeType: "application/json",
+        success : function(conf) {
+            $.each(conf, function( key, value ) {
+                $('#'+key).text(value)
+            });
+        },
+        error : function(e) {
+            console.log( "Failed to get configuration")
         }
     });
 }
@@ -49,6 +65,7 @@ function playSound(sound_id) {
     } 
 }
 
+initPage();
 $(document).ready(function(){
     selectSounds('');
 
