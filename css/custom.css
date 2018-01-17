@@ -31,3 +31,10 @@ h1 {
 	cursor: pointer;
 	margin: 1% 1% 1% 1%;
 }
+
+@media (max-width: 576px) {
+  .sound-cell {
+    height: 100px;
+	line-height: 100px;
+  }
+}
