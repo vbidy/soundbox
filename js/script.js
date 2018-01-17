@@ -34,13 +34,19 @@ function playSound(sound_id) {
     html_sounds_available=container.children('div').find('audio');
     for (var i=0; i < html_sounds_available.length;i++) {
         sound=html_sounds_available[i];
-        if (!$(sound)[0].paused){
+        if ( (!$(sound)[0].paused) && (sound.id != "sound_"+sound_id) ){
             $(sound)[0].pause();
             $(sound)[0].currentTime = 0;
         }
     }
     // Play the sound
-    $("#sound_"+sound_id)[0].play();
+    var audio = $("#sound_"+sound_id)[0];
+    if ( audio.paused ) {
+        audio.play();
+    }
+    else {
+        audio.pause();
+    } 
 }
 
 $(document).ready(function(){
