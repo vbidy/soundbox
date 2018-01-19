@@ -46,13 +46,16 @@ function initPage() {
 }
 
 function playSound(sound_id) {
-    // Stop all the other sounds
-    html_sounds_available=container.children('div').find('audio');
-    for (var i=0; i < html_sounds_available.length;i++) {
-        sound=html_sounds_available[i];
-        if ( (!$(sound)[0].paused) && (sound.id != "sound_"+sound_id) ){
-            $(sound)[0].pause();
-            $(sound)[0].currentTime = 0;
+    // Stop all the other sounds if needed
+    allow_parallel_reading=$("#allow_parallel_read")[0].checked;
+    if (!allow_parallel_reading) {
+        html_sounds_available=container.children('div').find('audio');
+        for (var i=0; i < html_sounds_available.length;i++) {
+            sound=html_sounds_available[i];
+            if ( (!$(sound)[0].paused) && (sound.id != "sound_"+sound_id) ){
+                $(sound)[0].pause();
+                $(sound)[0].currentTime = 0;
+            }
         }
     }
     // Play the sound
