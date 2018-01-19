@@ -15,11 +15,12 @@ h1 {
 	text-align: center;
 }
 
-.sound-cell-box {
-}
-
 .filter-input {
 	padding: 1% 1% 1% 1%;
+}
+
+.sound-cell-box {
+	padding: 0;
 }
 
 .sound-cell {

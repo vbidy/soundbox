@@ -24,7 +24,7 @@ function selectSounds(filter) {
             }
         },
         error : function(e) {
-            console.log( "Failed to load sounds.json")
+            console.error( "Failed to load sounds.json")
         }
     });
 }
@@ -40,7 +40,7 @@ function initPage() {
             });
         },
         error : function(e) {
-            console.log( "Failed to get configuration")
+            console.error( "Failed to get configuration")
         }
     });
 }
