@@ -24,7 +24,7 @@ function selectSounds(filter) {
             }
         },
         error : function(e) {
-            console.log( "Failed to load sounds.json")
+            console.error( "Failed to load sounds.json")
         }
     });
 }
@@ -40,19 +40,22 @@ function initPage() {
             });
         },
         error : function(e) {
-            console.log( "Failed to get configuration")
+            console.error( "Failed to get configuration")
         }
     });
 }
 
 function playSound(sound_id) {
-    // Stop all the other sounds
-    html_sounds_available=container.children('div').find('audio');
-    for (var i=0; i < html_sounds_available.length;i++) {
-        sound=html_sounds_available[i];
-        if ( (!$(sound)[0].paused) && (sound.id != "sound_"+sound_id) ){
-            $(sound)[0].pause();
-            $(sound)[0].currentTime = 0;
+    // Stop all the other sounds if needed
+    allow_parallel_reading=$("#allow_parallel_read")[0].checked;
+    if (!allow_parallel_reading) {
+        html_sounds_available=container.children('div').find('audio');
+        for (var i=0; i < html_sounds_available.length;i++) {
+            sound=html_sounds_available[i];
+            if ( (!$(sound)[0].paused) && (sound.id != "sound_"+sound_id) ){
+                $(sound)[0].pause();
+                $(sound)[0].currentTime = 0;
+            }
         }
     }
     // Play the sound
@@ -62,6 +65,7 @@ function playSound(sound_id) {
     }
     else {
         audio.pause();
+        audio.currentTime = 0;
     } 
 }
 
