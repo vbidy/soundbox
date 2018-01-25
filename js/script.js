@@ -65,6 +65,7 @@ function playSound(sound_id) {
     }
     else {
         audio.pause();
+        audio.currentTime = 0;
     } 
 }
 
